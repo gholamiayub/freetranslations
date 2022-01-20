@@ -1,0 +1,11 @@
+# .gitignore
+# Project files and directories
+/free_translations/settings.py
+/myproject/static/
+/myproject/tmp/
+/myproject/media/
+
+translators_email.csv
+Pipfile
+Pipfile.lock
+db.sqlite3
