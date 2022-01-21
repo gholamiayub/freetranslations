@@ -9,3 +9,4 @@ translators_email.csv
 Pipfile
 Pipfile.lock
 db.sqlite3
+static
