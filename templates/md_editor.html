@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Free Translations!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        #editor {
+  margin: 0;
+  height: 100%;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+}
+
+textarea,
+#editor div {
+  display: inline-block;
+  width: 49%;
+  
+  vertical-align: top;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+textarea {
+  border: none;
+  border-right: 1px solid #ccc;
+  resize: none;
+  outline: none;
+  background-color: #f6f6f6;
+  font-size: 14px;
+  font-family: "Monaco", courier, monospace;
+  padding: 20px;
+}
+
+code {
+  color: #f66;
+}
+    </style>
+  </head>
+  <body>
+  <div class="columns">
+    <div class="column is-1">
+    </div>
+    <div class="column">
+      <!-- start navbar -->
+      <div class="box">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://bulma.io">
+              <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+            </a>
+        
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+        
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item">
+                Translation
+              </a>
+        
+              <a class="navbar-item">
+                Our story
+              </a>
+        
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  Languages
+                </a>
+        
+                <div class="navbar-dropdown">
+                  <a class="navbar-item">
+                    About
+                  </a>
+                  <a class="navbar-item">
+                    Jobs
+                  </a>
+                  <a class="navbar-item">
+                    Contact
+                  </a>
+                  <hr class="navbar-divider">
+                  <a class="navbar-item">
+                    Report an issue
+                  </a>
+                </div>
+              </div>
+            </div>
+        
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a class="button is-primary">
+                    <strong>Sign up</strong>
+                  </a>
+                  <a class="button is-light">
+                    Log in
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="box">
+        <div id="editor">
+            <textarea class="textarea" rows="30" :value="input" @input="update"></textarea>
+            <div v-html="compiledMarkdown"></div>
+          </div>
+          <script>
+              const app = Vue.createApp({
+            data() {
+                return {
+                input: '# hello'
+                }
+            },
+            computed: {
+                compiledMarkdown() {
+                return marked(this.input, { sanitize: true });
+                }
+            },
+            methods: {
+                update: _.debounce(function(e) {
+                this.input = e.target.value;
+                }, 300)
+            }
+            })
+
+            app.mount('#editor')
+          </script>
+      </div>
+      </div>
+      <div class="column is-1"></div>
+      </div>
+      <!-- end navbar -->
+        <!---------------- Footer ----------------->
+        <div class="column mb-2">
+        <footer class="footer">
+          <div class="content has-text-centered">
+            <p>
+              <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+              <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+              is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+          </div>
+        </footer>
+      </div>
+        <!---------------- End Footer -------------->
+        <div class="column is-1"></div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </body>
+</html>
