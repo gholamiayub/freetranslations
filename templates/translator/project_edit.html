@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+{% load static%}
+
+
+{% block title %}Create Project!{% endblock %}
+
+
+{% block content %}
+        <h1>Create a new project</h1>
+        <p>A project contains all *.md files of a existing project to translation.</p>
+        <hr>
+        <form class="form" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col col-lg-3">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1" class="form-label"><b>Repository name</b></label>
+                    {{ form.name|attr:"type:text"|attr:"class:form-control" }}
+                </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><b>Description</b></label>
+                
+                {% render_field form.description class="form-control" row="1" %}
+            </div>
+            <hr>
+               
+            <fieldset>
+                {% for radio in form.access %}
+                <div class="myradio">
+                    <b>{{ radio }}</b>
+                </div>
+                {% endfor %}
+            </fieldset>
+            <hr>
+            <div class="row">
+                <div class="col col-lg-6">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Main source github</b></label>
+                        {{ form.source_github|attr:"type:url"|attr:"class:form-control" }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-lg-6">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" class="form-label"><b>Project github</b></label>
+                        {{ form.project_github|attr:"type:url"|attr:"class:form-control" }}
+                    </div>
+                </div>
+            </div>
+            <hr>
+             <div class="form-group">
+                 <button class="btn btn-success">
+                     <i class="save icon"></i>Save changes
+                 </button>
+             </div>
+          </form>
+{% endblock %}

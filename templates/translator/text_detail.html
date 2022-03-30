@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load martortags %}
+
+{% block title %}Text detail!000{% endblock %}
+
+{% block content %}
+  <h1>{{ text.name }}</h1>
+  <hr>
+  {{ text.context|safe_markdown }}
+{% endblock %}

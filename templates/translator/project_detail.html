@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load martortags %}
+{% load translator_tags %}
+
+{% block title %}Project detail!{% endblock %}
+
+{% block content %}
+   <b><a href="">{{ project.owner }}</a></b>
+  <hr>
+  <div class="container mt-3">
+    <div class="row">
+        <div class="col col-lg-9">
+          <div class="row">
+            <div class="col col-lg-9"></div>
+            <div class="col">
+              <a type="button" class="btn btn-light" href="{% url "translator:edit_project" project.slug %}" role="button">Edit project</a>
+              <a type="button" class="btn btn-success" href="{% url "translator:add_text" project.slug %}" role="button">Add</a>
+            </div>
+          </div>
+          {% for text in project.text.all %}
+            <div class="card shadow mt-3">
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col col-lg-9"><h2><a href="{{ text.get_absolute_url }}" class="link-dark">{{ text.name }}</a></h2></div>
+                    <div class="col col-lg-2"><a href="{% url "translator:translate_editor" text.slug %}" type="button" class="btn btn-primary">Translate</a></div>
+                    <div class="col col-lg-1"><a href="{% url "translator:text_edit" text.slug %}" type="button" class="btn btn-primary">Edit</a></div>
+
+                  </div> 
+                </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col col-lg-9">{{ text.context|safe_markdown|truncatewords:25|linebreaks }}</div>
+                  
+                    <div class="col mt-3"><p>{{ text.updated|timesince}} ago</p></div>
+                  </div>
+              </div>
+            </div>
+          {% empty %}
+          <p>There is no project yet</p>
+          {% endfor %}
+        </div>
+        <div class="col col-lg-3 mt-2">
+          <b>About</b>
+          <p>{{ project.description }}</p>
+          <div>
+            <b>Source</b>
+            <div>
+              <a href="{{ project.source_github }}">
+              
+              {{ project.source_github|url_to_domain }}
+            </a>
+          </div>
+          <b>Project github</b>
+            <div>
+              <a href="{{ project.project_github }}">
+                {{ project.project_github|url_to_domain }}
+              </a>
+            </div>
+          </div>
+          <hr>
+          <b>Contributer</b>
+        </div>
+ </div>
+</div>
+{% endblock %}
