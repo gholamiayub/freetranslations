@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib import messages
 
 from translator.models import Project, Text
@@ -31,25 +31,6 @@ def add_text(request, project_slug):
         form = TextForm()
     return render(request,
                   'translator/add_text.html',
-                  {'form': form})
-
-# @login_required
-def create_project(request):
-    """View for creating new translation project."""
-    if request.method == "POST":
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            form = form.save(commit=False)
-            # add form requested user to project owner field
-            form.owner = request.user
-            form.save()
-            name = request.POST.get('name')
-            obj = Project.objects.get(name=name)
-            return redirect(reverse('translator:project_detail', kwargs={'slug':obj.slug}))
-    else:
-        form = ProjectForm()
-    return render(request,
-                  'translator/create_project.html',
                   {'form': form})
 
 # adding LoginRequiredMixin to prevent anonymous users to submit form
@@ -80,6 +61,21 @@ def edit_project(request, project_slug):
     else:
         form = EditProjectForm(instance=project)
     return render(request, "translator/project_edit.html", {"form": form})
+
+# adding message
+# mixin view for check permisions  
+class UpdateProject(UpdateView):
+    model = Project
+    form_class = EditProjectForm
+    template_name = 'translator/project_edit.html'
+    
+    # to check if the requested user is same as owner user
+    def get_object(self, *args, **kwargs):
+        obj = super().get_object()
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
+
 
 
 class ProjectListView(ListView):
