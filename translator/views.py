@@ -1,7 +1,9 @@
+from pyexpat import model
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from django.contrib import messages
 
 from translator.models import Project, Text
@@ -49,6 +51,12 @@ def create_project(request):
     return render(request,
                   'translator/create_project.html',
                   {'form': form})
+# adding LoginRequiredMixin to prevent anonymous user form submit
+class CreateProject(CreateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'translator/create_project.html'
+
         
 def edit_project(request, project_slug):
     project = get_object_or_404(Project, slug=project_slug)

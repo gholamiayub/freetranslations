@@ -3,6 +3,7 @@ from django.urls import path
 from translator.views import (projects, 
                               ProjectDetailView, 
                               ProjectListView, 
+                              CreateProject,
                               create_project,
                               add_text,
                               text_detail,
@@ -14,7 +15,9 @@ app_name = 'translator'
 
 urlpatterns = [
     path('translate_editor/<slug:text_slug>/', translate_editor, name="translate_editor"),
-    path('create_project/', create_project, name="create_project"),
+    # path('create_project/', create_project, name="create_project"),
+    # create view with generic class based view
+    path('create_project/', CreateProject.as_view(), name="create_project"),
     path('', ProjectListView.as_view(), name="project_list"),
     path('<slug:slug>/', ProjectDetailView.as_view(), name="project_detail"),
     path('edit_project/<slug:project_slug>', edit_project, name="edit_project"),
