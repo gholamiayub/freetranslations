@@ -51,11 +51,16 @@ def create_project(request):
     return render(request,
                   'translator/create_project.html',
                   {'form': form})
-# adding LoginRequiredMixin to prevent anonymous user form submit
+
+# adding LoginRequiredMixin to prevent anonymous users to submit form
 class CreateProject(CreateView):
     model = Project
     form_class = ProjectForm
     template_name = 'translator/create_project.html'
+    
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
         
 def edit_project(request, project_slug):
