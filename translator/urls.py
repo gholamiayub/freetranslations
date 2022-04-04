@@ -1,7 +1,6 @@
 from django.urls import path
 
-from translator.views import (projects, 
-                              ProjectDetailView, 
+from translator.views import (ProjectDetailView, 
                               ProjectListView, 
                               CreateProject,
                               UpdateProject,
@@ -10,6 +9,7 @@ from translator.views import (projects,
                               text_edit,
                               edit_project,
                               translate_editor)
+                              
 
 app_name = 'translator'
 
