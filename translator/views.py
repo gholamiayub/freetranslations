@@ -79,18 +79,12 @@ class UpdateProject(UpdateView):
 
 
 class ProjectListView(ListView):
-    print("This is list view")
+
     model = Project
     paginate = 20
     context_object_name = 'projects'
     template_name = 'translator/list.html'
 
-# later delete this
-def projects(request):
-    pass
-    # projects = Project.objects.all()
-    # context = {'projects': projects}
-    # return render(request, 'translator/list.html', context=context)
 
 class ProjectDetailView(DetailView):
     model = Project
