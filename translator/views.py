@@ -1,6 +1,7 @@
 from pyexpat import model
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
@@ -34,10 +35,12 @@ def add_text(request, project_slug):
                   {'form': form})
 
 # adding LoginRequiredMixin to prevent anonymous users to submit form
-class CreateProject(CreateView):
+class CreateProject(LoginRequiredMixin, CreateView):
     model = Project
     form_class = ProjectForm
     template_name = 'translator/create_project.html'
+    login_url = '/accounts/login/'
+    redirect_field_name = 'project_list'
     
     def form_valid(self, form):
         form.instance.owner = self.request.user
