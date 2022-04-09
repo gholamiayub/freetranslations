@@ -34,7 +34,7 @@ def add_text(request, project_slug):
                   'translator/add_text.html',
                   {'form': form})
 
-# adding LoginRequiredMixin to prevent anonymous users to submit form
+
 class CreateProject(LoginRequiredMixin, CreateView):
     model = Project
     form_class = ProjectForm
