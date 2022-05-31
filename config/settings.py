@@ -111,9 +111,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'freetranslationdb',
-    'USER': 'freetranslationproject',
-    'PASSWORD': 'nX6SMA1NoShlAYclFEUoCon3',
+    'NAME': 'name',
+    'USER': 'user',
+    'PASSWORD': 'password',
     'HOST': 'freetranslation-db',
     'PORT': 5432
     }
